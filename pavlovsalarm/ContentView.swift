@@ -7,18 +7,24 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AlarmView: View {
+    @StateObject var alarm = AlarmModel(time: Date())
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            Form {
+                DatePicker("Set Time", selection: $alarm.time, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(WheelDatePickerStyle())
+                
+                Button("Save Alarm") {
+                    AlarmManager.shared.scheduleNotification(for: alarm)
+                }
+            }
+            .navigationTitle("Alarm")
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    AlarmView()
 }

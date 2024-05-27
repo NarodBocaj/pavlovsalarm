@@ -8,10 +8,14 @@
 import SwiftUI
 
 @main
-struct pavlovsalarmApp: App {
+struct AlarmApp: App {
+    init() {
+        AlarmManager.shared.requestAuthorization()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AlarmView()
         }
     }
 }
