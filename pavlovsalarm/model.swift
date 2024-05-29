@@ -2,7 +2,7 @@
 //  model.swift
 //  pavlovsalarm
 //
-//  Created by Jacob Doran on 5/27/24.
+//  
 //
 
 import Foundation

@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D2EEEFE2C07923600A97123 /* todo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = todo.md; sourceTree = SOURCE_ROOT; };
 		BAEA2D122C02ADE900D8E8A0 /* pavlovsalarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pavlovsalarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAEA2D152C02ADE900D8E8A0 /* pavlovsalarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pavlovsalarmApp.swift; sourceTree = "<group>"; };
 		BAEA2D172C02ADE900D8E8A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 			children = (
 				BAEA2D152C02ADE900D8E8A0 /* pavlovsalarmApp.swift */,
 				BAEA2D232C053ADE00D8E8A0 /* model.swift */,
+				1D2EEEFE2C07923600A97123 /* todo.md */,
 				BAEA2D252C053B3500D8E8A0 /* manager.swift */,
 				BAEA2D172C02ADE900D8E8A0 /* ContentView.swift */,
 				BAEA2D192C02ADEA00D8E8A0 /* Assets.xcassets */,
