@@ -7,8 +7,9 @@
 
 import UserNotifications
 
-class AlarmManager {
+class AlarmManager: ObservableObject {
     static let shared = AlarmManager()
+    @Published var alarms: [AlarmModel] = []
     
     func requestAuthorization() {
         let options: UNAuthorizationOptions = [.alert, .sound]
@@ -22,6 +23,10 @@ class AlarmManager {
     }
     
     func scheduleNotification(for alarm: AlarmModel) {
+        alarms.append(alarm)
+        print("weewoo")
+        print(alarms)
+        
         let content = UNMutableNotificationContent()
         content.title = "Alarm"
         content.body = "Your alarm is going off!"
@@ -37,6 +42,8 @@ class AlarmManager {
                 print("Error scheduling notification: \(error)")
             }
         }
+        
+        
     }
     
     func cancelNotification(for alarm: AlarmModel) {
