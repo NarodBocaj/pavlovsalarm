@@ -33,11 +33,21 @@ struct AlarmView: View {
         NavigationView {
             VStack {
                 Form {
-                    HStack{
-                        DatePicker("Set Time", selection: $startTime, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(WheelDatePickerStyle())
-                        DatePicker("Set Time", selection: $endTime, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(WheelDatePickerStyle())
+                    VStack{
+                        DatePicker(
+                            "Start Date",
+                             selection: $startTime,
+                             displayedComponents: [.date, .hourAndMinute]
+                        )
+                        DatePicker(
+                            "End Date",
+                             selection: $endTime,
+                             displayedComponents: [.date, .hourAndMinute]
+                        )
+//                        DatePicker("Set Time", selection: $startTime, displayedComponents: .hourAndMinute)
+//                            .datePickerStyle(WheelDatePickerStyle())
+//                        DatePicker("Set Time", selection: $endTime, displayedComponents: .hourAndMinute)
+//                            .datePickerStyle(WheelDatePickerStyle())
                     }
                     
                     Button("Save Alarm") {
