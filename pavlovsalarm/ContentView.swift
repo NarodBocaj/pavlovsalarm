@@ -26,17 +26,22 @@ struct AlarmListView: View {
 }
 
 struct AlarmView: View {
-    @State private var selectedTime = Date()
+    @State private var startTime = Date()
+    @State private var endTime = Date()
     
     var body: some View {
         NavigationView {
             VStack {
                 Form {
-                    DatePicker("Set Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
-                        .datePickerStyle(WheelDatePickerStyle())
+                    HStack{
+                        DatePicker("Set Time", selection: $startTime, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(WheelDatePickerStyle())
+                        DatePicker("Set Time", selection: $endTime, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(WheelDatePickerStyle())
+                    }
                     
                     Button("Save Alarm") {
-                        let newAlarm = AlarmModel(time: selectedTime)
+                        let newAlarm = AlarmModel(start_time: startTime, end_time: endTime)
                         AlarmManager.shared.scheduleNotification(for: newAlarm)
                     }
                 }
