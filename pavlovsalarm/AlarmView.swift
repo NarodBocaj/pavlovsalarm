@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct AlarmListView: View {
-    @ObservedObject var alarmManager = AlarmManager.shared
+    @ObservedObject var Butler: AlarmButler
     
     var body: some View {
         List {
-            ForEach(alarmManager.alarms) { alarm in
+            ForEach(Butler.alarms) { alarm in
                 Text("\(alarm.time, formatter: timeFormatter)")
             }
         }
@@ -26,6 +26,8 @@ struct AlarmListView: View {
 }
 
 struct AlarmView: View {
+    @ObservedObject var Butler: AlarmButler
+    
     @State private var startTime = Date()
     @State private var endTime = Date()
     
@@ -41,19 +43,20 @@ struct AlarmView: View {
                     }
                     
                     Button("Save Alarm") {
-                        let newAlarm = AlarmModel(start_time: startTime, end_time: endTime)
-                        AlarmManager.shared.scheduleNotification(for: newAlarm)
+//                        let newAlarm = AlarmModel(start_time: startTime, end_time: endTime)
+//                        AlarmButler.shared.scheduleNotification(for: newAlarm)
+                        Butler.addNewAlarm(start_time: startTime, end_time: endTime)
                     }
                 }
                 .navigationTitle("Alarm")
                 
-                AlarmListView()
-                    .navigationTitle("Scheduled Alarms")
+                AlarmListView(Butler: Butler)
             }
         }
     }
 }
 
+
 #Preview {
-    AlarmView()
+    AlarmView(Butler: AlarmButler())
 }
