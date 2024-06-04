@@ -10,12 +10,12 @@ import SwiftUI
 @main
 struct AlarmApp: App {
     init() {
-        AlarmManager.shared.requestAuthorization()
+        AlarmButler.requestAuthorization()
     }
 
     var body: some Scene {
         WindowGroup {
-            AlarmView()
+            AlarmView(Butler: AlarmButler())
         }
     }
 }

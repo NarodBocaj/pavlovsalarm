@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		BAEA2D162C02ADE900D8E8A0 /* pavlovsalarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D152C02ADE900D8E8A0 /* pavlovsalarmApp.swift */; };
-		BAEA2D182C02ADE900D8E8A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D172C02ADE900D8E8A0 /* ContentView.swift */; };
+		BAEA2D182C02ADE900D8E8A0 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D172C02ADE900D8E8A0 /* AlarmView.swift */; };
 		BAEA2D1A2C02ADEA00D8E8A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAEA2D192C02ADEA00D8E8A0 /* Assets.xcassets */; };
 		BAEA2D1D2C02ADEA00D8E8A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAEA2D1C2C02ADEA00D8E8A0 /* Preview Assets.xcassets */; };
-		BAEA2D242C053ADF00D8E8A0 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D232C053ADE00D8E8A0 /* model.swift */; };
-		BAEA2D262C053B3500D8E8A0 /* manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D252C053B3500D8E8A0 /* manager.swift */; };
+		BAEA2D242C053ADF00D8E8A0 /* AlarmTruth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D232C053ADE00D8E8A0 /* AlarmTruth.swift */; };
+		BAEA2D262C053B3500D8E8A0 /* AlarmButler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEA2D252C053B3500D8E8A0 /* AlarmButler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D2EEEFE2C07923600A97123 /* todo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = todo.md; sourceTree = SOURCE_ROOT; };
 		BAEA2D122C02ADE900D8E8A0 /* pavlovsalarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pavlovsalarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAEA2D152C02ADE900D8E8A0 /* pavlovsalarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pavlovsalarmApp.swift; sourceTree = "<group>"; };
-		BAEA2D172C02ADE900D8E8A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BAEA2D172C02ADE900D8E8A0 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		BAEA2D192C02ADEA00D8E8A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BAEA2D1C2C02ADEA00D8E8A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BAEA2D232C053ADE00D8E8A0 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
-		BAEA2D252C053B3500D8E8A0 /* manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manager.swift; sourceTree = "<group>"; };
+		BAEA2D232C053ADE00D8E8A0 /* AlarmTruth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTruth.swift; sourceTree = "<group>"; };
+		BAEA2D252C053B3500D8E8A0 /* AlarmButler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmButler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,10 +57,10 @@
 			isa = PBXGroup;
 			children = (
 				BAEA2D152C02ADE900D8E8A0 /* pavlovsalarmApp.swift */,
-				BAEA2D232C053ADE00D8E8A0 /* model.swift */,
+				BAEA2D232C053ADE00D8E8A0 /* AlarmTruth.swift */,
 				1D2EEEFE2C07923600A97123 /* todo.md */,
-				BAEA2D252C053B3500D8E8A0 /* manager.swift */,
-				BAEA2D172C02ADE900D8E8A0 /* ContentView.swift */,
+				BAEA2D252C053B3500D8E8A0 /* AlarmButler.swift */,
+				BAEA2D172C02ADE900D8E8A0 /* AlarmView.swift */,
 				BAEA2D192C02ADEA00D8E8A0 /* Assets.xcassets */,
 				BAEA2D1B2C02ADEA00D8E8A0 /* Preview Content */,
 			);
@@ -145,10 +145,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAEA2D182C02ADE900D8E8A0 /* ContentView.swift in Sources */,
-				BAEA2D242C053ADF00D8E8A0 /* model.swift in Sources */,
+				BAEA2D182C02ADE900D8E8A0 /* AlarmView.swift in Sources */,
+				BAEA2D242C053ADF00D8E8A0 /* AlarmTruth.swift in Sources */,
 				BAEA2D162C02ADE900D8E8A0 /* pavlovsalarmApp.swift in Sources */,
-				BAEA2D262C053B3500D8E8A0 /* manager.swift in Sources */,
+				BAEA2D262C053B3500D8E8A0 /* AlarmButler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
