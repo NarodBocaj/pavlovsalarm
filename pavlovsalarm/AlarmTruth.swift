@@ -35,17 +35,9 @@ struct AlarmTruth {
     }
     
     private static func randomDateBetween(start: Date, end: Date) -> Date {
-        // changing everything to structs broike this for some reason, switching it around fixed it, not sure why
-        let interval = max(start.timeIntervalSince(end), 0)  // Ensure the interval is non-negative
-        if interval == 0 {
-            return start  // Return start if start and end are the same or end is before start
-        }
-        let clampedInterval = min(interval, Double(UInt32.max))  // Clamp to UInt32.max
-        let randomInterval = TimeInterval(arc4random_uniform(UInt32(clampedInterval)))
+        let interval = end.timeIntervalSince(start)
+        let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
         return start.addingTimeInterval(randomInterval)
-//        let interval = end.timeIntervalSince(start)
-//        let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
-//        return start.addingTimeInterval(randomInterval)
     }
     
     struct Alarm: Identifiable {
