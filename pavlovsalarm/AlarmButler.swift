@@ -18,6 +18,10 @@ class AlarmButler: ObservableObject {
         truth.addAlarm(start: start_time, end: end_time)
     }
     
+    func deleteAlarm(at offsets: IndexSet) {
+        truth.deleteAlarm(at: offsets)
+    }
+    
     static func requestAuthorization() {
             let options: UNAuthorizationOptions = [.alert, .sound]
             UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in

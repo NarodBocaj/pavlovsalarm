@@ -34,6 +34,12 @@ struct AlarmTruth {
         print(alarms)
     }
     
+    mutating func deleteAlarm(at offsets: IndexSet) {
+        //this function still needs to remove the notification I believe
+        //right now it just removes the alarm from the list
+        alarms.remove(atOffsets: offsets)
+    }
+    
     private static func randomDateBetween(start: Date, end: Date) -> Date {
         let interval = end.timeIntervalSince(start)
         let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))

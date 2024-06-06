@@ -13,8 +13,12 @@ struct AlarmListView: View {
     var body: some View {
         List {
             ForEach(Butler.alarms) { alarm in
-                Text("\(alarm.time, formatter: timeFormatter)")
+                Text(
+                    //would like this to be on one line each but not sure how
+                    "Start Time: \(alarm.start_time, formatter: timeFormatter) End Time: \(alarm.end_time, formatter: timeFormatter) Rand Time: \(alarm.time, formatter: timeFormatter)"
+                )
             }
+            .onDelete(perform: Butler.deleteAlarm)
         }
     }
     
@@ -46,21 +50,17 @@ struct AlarmView: View {
                              selection: $endTime,
                              displayedComponents: [.date, .hourAndMinute]
                         )
-//                        DatePicker("Set Time", selection: $startTime, displayedComponents: .hourAndMinute)
-//                            .datePickerStyle(WheelDatePickerStyle())
-//                        DatePicker("Set Time", selection: $endTime, displayedComponents: .hourAndMinute)
-//                            .datePickerStyle(WheelDatePickerStyle())
                     }
                     
                     Button("Save Alarm") {
-//                        let newAlarm = AlarmModel(start_time: startTime, end_time: endTime)
-//                        AlarmButler.shared.scheduleNotification(for: newAlarm)
                         Butler.addNewAlarm(start_time: startTime, end_time: endTime)
                     }
                 }
                 .navigationTitle("Alarm")
                 
-                AlarmListView(Butler: Butler)
+                AlarmListView(Butler: Butler).toolbar{
+                    EditButton()
+                }
             }
         }
     }
