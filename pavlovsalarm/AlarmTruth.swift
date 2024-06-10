@@ -32,18 +32,21 @@ struct AlarmTruth {
         }
         print("weewoo")
         print(alarms)
+        printPendingNotifications()
     }
     
     mutating func deleteAlarm(at offsets: IndexSet) {
-        //this function still needs to remove the notification I believe
-        //right now it just removes the alarm from the list
+        offsets.forEach { index in
+            let alarm = alarms[index]
+            removeNotification(withIdentifier: alarm.id.uuidString)
+        }
         alarms.remove(atOffsets: offsets)
     }
     
     mutating func unscheduleAlarm(withId id: UUID) {
         if let alarmIndex = alarms.firstIndex(where: { $0.id == id }) {//I dont really understand this line
-//            let alarm = alarms[alarmIndex]
-//            removeNotification(withIdentifier: alarm.notificationID)
+            let alarm = alarms[alarmIndex]
+            removeNotification(withIdentifier: alarm.id.uuidString)
             alarms[alarmIndex].isEnabled = false
         }
     }
@@ -60,6 +63,30 @@ struct AlarmTruth {
         let interval = end.timeIntervalSince(start)
         let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
         return start.addingTimeInterval(randomInterval)
+    }
+    
+    private func removeNotification(withIdentifier identifier: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        printPendingNotifications()
+    }
+    
+    //this is not working
+    private func printPendingNotifications() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        notificationCenter.getPendingNotificationRequests { requests in
+            print("There are \(requests.count) pending notifications.")
+            
+            for request in requests {
+                print("Notification ID: \(request.identifier)")
+                if let trigger = request.trigger as? UNCalendarNotificationTrigger,
+                   let triggerDate = trigger.nextTriggerDate() {
+                    print("Scheduled Time: \(triggerDate)")
+                }
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+            }
+        }
     }
     
     struct Alarm: Identifiable {
