@@ -13,10 +13,27 @@ struct AlarmListView: View {
     var body: some View {
         List {
             ForEach(Butler.alarms) { alarm in
-                Text(
-                    //would like this to be on one line each but not sure how
-                    "Start Time: \(alarm.start_time, formatter: timeFormatter) End Time: \(alarm.end_time, formatter: timeFormatter) Rand Time: \(alarm.time, formatter: timeFormatter)"
-                )
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Start Time: \(alarm.start_time, formatter: timeFormatter)")
+                        Text("End Time: \(alarm.end_time, formatter: timeFormatter)")
+                        Text("Rand Time: \(alarm.time, formatter: timeFormatter)")
+                    }
+                    Spacer()
+                    Toggle(isOn: Binding(
+                        get: { alarm.isEnabled },
+                        set: { newValue in
+                            if !newValue {
+                                Butler.unscheduleAlarm(for: alarm.id)
+                            } else {
+                                Butler.scheduleAlarm(for: alarm.id)
+                            }
+                        }
+                    )) {
+                        Text("") // Empty text label for the toggle
+                    }
+                    .labelsHidden()
+                }
             }
             .onDelete(perform: Butler.deleteAlarm)
         }

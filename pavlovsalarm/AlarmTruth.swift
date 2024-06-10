@@ -40,6 +40,22 @@ struct AlarmTruth {
         alarms.remove(atOffsets: offsets)
     }
     
+    mutating func unscheduleAlarm(withId id: UUID) {
+        if let alarmIndex = alarms.firstIndex(where: { $0.id == id }) {//I dont really understand this line
+//            let alarm = alarms[alarmIndex]
+//            removeNotification(withIdentifier: alarm.notificationID)
+            alarms[alarmIndex].isEnabled = false
+        }
+    }
+    
+    mutating func scheduleAlarm(withId id: UUID) {//This rescheduling kind of effect needs to reroll the randtime
+        if let alarmIndex = alarms.firstIndex(where: { $0.id == id }) {//I dont really understand this line
+//            let alarm = alarms[alarmIndex]
+//            createNotification(withIdentifier: alarm.notificationID)
+            alarms[alarmIndex].isEnabled = true
+        }
+    }
+    
     private static func randomDateBetween(start: Date, end: Date) -> Date {
         let interval = end.timeIntervalSince(start)
         let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
@@ -51,6 +67,7 @@ struct AlarmTruth {
         var start_time: Date
         var end_time: Date
         var time: Date
+        var isEnabled: Bool = true
         
         init(start_time: Date, end_time: Date) {
             self.start_time = start_time

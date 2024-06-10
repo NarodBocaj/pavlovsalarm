@@ -22,6 +22,14 @@ class AlarmButler: ObservableObject {
         truth.deleteAlarm(at: offsets)
     }
     
+    func unscheduleAlarm(for id: UUID) {
+            truth.unscheduleAlarm(withId: id)
+    }
+    
+    func scheduleAlarm(for id: UUID) {
+            truth.scheduleAlarm(withId: id)
+    }
+    
     static func requestAuthorization() {
             let options: UNAuthorizationOptions = [.alert, .sound]
             UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
