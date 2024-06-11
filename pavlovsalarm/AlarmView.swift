@@ -15,9 +15,9 @@ struct AlarmListView: View {
             ForEach(Butler.alarms) { alarm in
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Start Time: \(alarm.start_time, formatter: timeFormatter)")
-                        Text("End Time: \(alarm.end_time, formatter: timeFormatter)")
-                        Text("Rand Time: \(alarm.time, formatter: timeFormatter)")
+                        Text("Start Time: \(alarm.start_time, formatter: timeFormatter)").foregroundColor(alarm.isEnabled ? Color.white : Color(white: 0.7))
+                        Text("End Time: \(alarm.end_time, formatter: timeFormatter)").foregroundColor(alarm.isEnabled ? Color.white : Color(white: 0.7))
+                        Text("Rand Time: \(alarm.time, formatter: timeFormatter)").foregroundColor(alarm.isEnabled ? Color.white : Color(white: 0.7))
                     }
                     Spacer()
                     Toggle(isOn: Binding(
@@ -37,6 +37,7 @@ struct AlarmListView: View {
             }
             .onDelete(perform: Butler.deleteAlarm)
         }
+        .listStyle(PlainListStyle())
     }
     
     private var timeFormatter: DateFormatter {
@@ -74,6 +75,7 @@ struct AlarmView: View {
                     }
                 }
                 .navigationTitle("Alarm")
+                .frame(height: 200)
                 
                 AlarmListView(Butler: Butler).toolbar{
                     EditButton()

@@ -24,7 +24,13 @@
 - [ ] Future important work
     - [ ] Schedule alarm should eventually expect notification sound
     - [ ] Schedule alarm should also eventually expect the option of more than 1 alarm
+    - [ ] Schedule alarm that goes after midnight causes app crash(potentially fixed by removing some date logic)
+        - I picture something here that alarm creation defaultly assumes current day
+        - Then when alarm goes off, it toggles off and rescheduling will update times with current day
+        - Might need logic if random time rolled is before current time
     - [ ] Notification sound improvement
     - [ ] Notifications working when the app is open
     - [ ] Generally getting close to the fonts of the actual iOS alarm app
 
+- Questions
+    - IOS only supports dark mode I believe for Alarm. Should we only do dark mode as well?
