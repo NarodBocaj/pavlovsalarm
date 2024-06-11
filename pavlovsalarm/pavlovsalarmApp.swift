@@ -16,6 +16,7 @@ struct AlarmApp: App {
     var body: some Scene {
         WindowGroup {
             AlarmView(Butler: AlarmButler())
+                .preferredColorScheme(.dark)
         }
     }
 }
