@@ -15,6 +15,7 @@ struct AlarmTruth {
         let new_alarm = Alarm(start_time: start, end_time: end)
         alarms.append(new_alarm)
         
+        //remove following code and use the add notification
         let content = UNMutableNotificationContent()
         content.title = "Alarm"
         content.body = "Your alarm is going off!"
@@ -51,18 +52,30 @@ struct AlarmTruth {
         }
     }
     
-    mutating func scheduleAlarm(withId id: UUID) {//This rescheduling kind of effect needs to reroll the randtime
+    mutating func scheduleAlarm(withId id: UUID) {
         if let alarmIndex = alarms.firstIndex(where: { $0.id == id }) {//I dont really understand this line
-//            let alarm = alarms[alarmIndex]
-//            createNotification(withIdentifier: alarm.notificationID)
+            alarms[alarmIndex].updateRandomTime()
+            addNotification(alarm: alarms[alarmIndex])
             alarms[alarmIndex].isEnabled = true
         }
     }
     
-    private static func randomDateBetween(start: Date, end: Date) -> Date {
-        let interval = end.timeIntervalSince(start)
-        let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
-        return start.addingTimeInterval(randomInterval)
+    private func addNotification(alarm: Alarm) {
+        let content = UNMutableNotificationContent()
+        content.title = "Alarm"
+        content.body = "Your alarm is going off!"
+        content.sound = UNNotificationSound.default
+                
+        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: alarm.time)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+                
+        let request = UNNotificationRequest(identifier: alarm.id.uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            }
+        }
+        print("reschuled alarm new time is: \(alarm.time)")
     }
     
     private func removeNotification(withIdentifier identifier: String) {
@@ -89,6 +102,12 @@ struct AlarmTruth {
         }
     }
     
+    private static func randomDateBetween(start: Date, end: Date) -> Date {
+        let interval = end.timeIntervalSince(start)
+        let randomInterval = TimeInterval(arc4random_uniform(UInt32(interval)))
+        return start.addingTimeInterval(randomInterval)
+    }
+    
     struct Alarm: Identifiable {
         let id = UUID()
         var start_time: Date
@@ -101,5 +120,10 @@ struct AlarmTruth {
             self.end_time = end_time
             self.time = randomDateBetween(start: start_time, end: end_time)
         }
+        
+        mutating func updateRandomTime() {
+            self.time = randomDateBetween(start: self.start_time, end: self.end_time)
+        }
     }
 }
+

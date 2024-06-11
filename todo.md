@@ -12,8 +12,8 @@
     
 - [ ] Jacob's list of logic that I believe makes sense to work on
     - [ ] Toggling alarm back on reschedules notification and rerolls random time
-        - [ ] Write separate schedule function apart from `addAlarm`
-        - [ ] Write method into `Alarm` struct to reroll time
+        - [x] Write separate schedule function apart from `addAlarm`
+        - [x] Write method into `Alarm` struct to reroll time
         - [ ] **WARNING:** I think the way we have this with the dates right now will make toggling back on not really work
     - [ ] Alarm going off switches toggle switch by changing `alarm.isEnabled` to `false` (fixing this fixes UI issue)
         - This can be done by either adding some kind of observer to the notifications

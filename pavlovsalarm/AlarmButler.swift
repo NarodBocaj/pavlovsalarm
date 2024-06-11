@@ -23,11 +23,11 @@ class AlarmButler: ObservableObject {
     }
     
     func unscheduleAlarm(for id: UUID) {
-            truth.unscheduleAlarm(withId: id)
+        truth.unscheduleAlarm(withId: id)
     }
     
     func scheduleAlarm(for id: UUID) {
-            truth.scheduleAlarm(withId: id)
+        truth.scheduleAlarm(withId: id)
     }
     
     static func requestAuthorization() {
