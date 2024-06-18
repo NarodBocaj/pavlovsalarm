@@ -108,21 +108,60 @@ struct AlarmTruth {
         return start.addingTimeInterval(randomInterval)
     }
     
+    private static func makeEndTimeAfterStart(start: Date, end: Date) -> Date {
+        var adjustedEndTime = end
+        if end < start {
+            adjustedEndTime = Calendar.current.date(byAdding: .day, value: 1, to: end)!
+        }
+        return adjustedEndTime
+    }
+    
+    private static func checkStartAfterCurrent(start: Date, curr: Date) -> Bool {
+        return (curr < start)
+    }
+    
     struct Alarm: Identifiable {
         let id = UUID()
         var start_time: Date
-        var end_time: Date
+        var end_time: Date      //end time is now slighly obsolete with the use of adj_end_time
         var time: Date
         var isEnabled: Bool = true
+        var adj_end_time: Date
         
         init(start_time: Date, end_time: Date) {
-            self.start_time = start_time
+            self.start_time = start_time            //need some version of start after current, we want the alarm to go off tomorrow if the start time has already passed today
             self.end_time = end_time
-            self.time = randomDateBetween(start: start_time, end: end_time)
+            self.adj_end_time = makeEndTimeAfterStart(start: start_time, end: end_time)
+            self.time = randomDateBetween(start: start_time, end: adj_end_time)
         }
         
         mutating func updateRandomTime() {
-            self.time = randomDateBetween(start: self.start_time, end: self.end_time)
+            adjustToCurrentDay(start_time: self.start_time, end_time: self.end_time)
+            self.time = randomDateBetween(start: self.start_time, end: self.adj_end_time)
+        }
+        
+        mutating func adjustToCurrentDay(start_time: Date, end_time: Date) {
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            
+            let startHour = calendar.component(.hour, from: start_time)
+            let startMinute = calendar.component(.minute, from: start_time)
+            let endHour = calendar.component(.hour, from: end_time)
+            let endMinute = calendar.component(.minute, from: end_time)
+            
+            var adjustedStartTime = calendar.date(bySettingHour: startHour, minute: startMinute, second: 0, of: today)!
+            var adjustedEndTime = calendar.date(bySettingHour: endHour, minute: endMinute, second: 0, of: today)!
+            
+            adjustedEndTime = makeEndTimeAfterStart(start: adjustedStartTime, end: adjustedEndTime)
+            
+            if checkStartAfterCurrent(start: adjustedStartTime, curr: Date()) {//if the start time is before the current time, the alarm will occur tomorrow
+                adjustedStartTime = Calendar.current.date(byAdding: .day, value: 1, to: adjustedStartTime)!
+                adjustedEndTime = Calendar.current.date(byAdding: .day, value: 1, to: adjustedEndTime)!
+            }
+            
+            self.start_time = adjustedStartTime
+            self.end_time = adjustedEndTime
+            self.adj_end_time = adjustedEndTime
         }
     }
 }
