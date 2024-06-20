@@ -49,38 +49,59 @@ struct AlarmListView: View {
 
 struct AlarmView: View {
     @ObservedObject var Butler: AlarmButler
-    
     @State private var startTime = Date()
     @State private var endTime = Date()
+    @State private var isAddingAlarm = false
+    let soundOptions = ["Default", "Beep", "Chime", "Alarm", "Birds"]
+    @State private var selectedSound = "Default"
     
     var body: some View {
         NavigationView {
             VStack {
-                Form {
-                    VStack{
-                        DatePicker(
-                            "Start Date",
-                             selection: $startTime,
-                             displayedComponents: [.date, .hourAndMinute]
-                        )
-                        DatePicker(
-                            "End Date",
-                             selection: $endTime,
-                             displayedComponents: [.date, .hourAndMinute]
-                        )
+                if isAddingAlarm {
+                    Form {
+                        VStack{
+                            DatePicker(
+                                "Start Date",
+                                selection: $startTime,
+                                displayedComponents: [.date, .hourAndMinute]
+                            )
+                            DatePicker(
+                                "End Date",
+                                selection: $endTime,
+                                displayedComponents: [.date, .hourAndMinute]
+                            )
+                        }
+                        Picker("Select Alarm Sound", selection: $selectedSound) {
+                            ForEach(soundOptions, id: \.self) { sound in
+                                Text(sound)
+                            }
+                        }
+                        Button("Save Alarm") {
+                            Butler.addNewAlarm(start_time: startTime, end_time: endTime, sound: selectedSound)
+                            isAddingAlarm = false
+                        }
                     }
-                    
-                    Button("Save Alarm") {
-                        Butler.addNewAlarm(start_time: startTime, end_time: endTime)
-                    }
+                    .transition(.slide)
+                    .animation(.easeInOut)
                 }
-                .navigationTitle("Alarm")
-                .frame(height: 200)
                 
-                AlarmListView(Butler: Butler).toolbar{
-                    EditButton()
-                }
+                AlarmListView(Butler: Butler)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarLeading) {
+                            EditButton().foregroundColor(.orange)
+                        }
+                        
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                isAddingAlarm.toggle()
+                            }) {
+                                Image(systemName: "plus").foregroundColor(.orange)
+                            }
+                        }
+                    }
             }
+            .navigationTitle("Alarm")
         }
     }
 }

@@ -11,26 +11,12 @@ import UserNotifications
 struct AlarmTruth {
     private(set) var alarms: Array<Alarm> = []
     
-    mutating func addAlarm(start: Date, end: Date) {
-        let new_alarm = Alarm(start_time: start, end_time: end)
+    mutating func addAlarm(start: Date, end: Date, sound: String) {
+        let new_alarm = Alarm(start_time: start, end_time: end, sound: sound)
         alarms.append(new_alarm)
         
-        //remove following code and use the add notification
-        let content = UNMutableNotificationContent()
-        content.title = "Alarm"
-        content.body = "Your alarm is going off!"
-        content.sound = UNNotificationSound.default
-                
-        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: new_alarm.time)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-                
-        let request = UNNotificationRequest(identifier: new_alarm.id.uuidString, content: content, trigger: trigger)
-                
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Error scheduling notification: \(error)")
-            }
-        }
+        addNotification(alarm: new_alarm)
+        
         print("weewoo")
         print(alarms)
         printPendingNotifications()
@@ -75,7 +61,7 @@ struct AlarmTruth {
                 print("Error scheduling notification: \(error)")
             }
         }
-        print("reschuled alarm new time is: \(alarm.time)")
+        print("schedule alarm for: \(alarm.time)")
     }
     
     private func removeNotification(withIdentifier identifier: String) {
@@ -127,12 +113,14 @@ struct AlarmTruth {
         var time: Date
         var isEnabled: Bool = true
         var adj_end_time: Date
+        var sound: String
         
-        init(start_time: Date, end_time: Date) {
+        init(start_time: Date, end_time: Date, sound: String) {
             self.start_time = start_time            //need some version of start after current, we want the alarm to go off tomorrow if the start time has already passed today
             self.end_time = end_time
             self.adj_end_time = makeEndTimeAfterStart(start: start_time, end: end_time)
             self.time = randomDateBetween(start: start_time, end: adj_end_time)
+            self.sound = sound
         }
         
         mutating func updateRandomTime() {

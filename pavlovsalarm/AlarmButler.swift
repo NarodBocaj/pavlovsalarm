@@ -14,8 +14,8 @@ class AlarmButler: ObservableObject {
         return truth.alarms
     }
     
-    func addNewAlarm(start_time: Date, end_time: Date) {
-        truth.addAlarm(start: start_time, end: end_time)
+    func addNewAlarm(start_time: Date, end_time: Date, sound: String) {
+        truth.addAlarm(start: start_time, end: end_time, sound: sound)
     }
     
     func deleteAlarm(at offsets: IndexSet) {
